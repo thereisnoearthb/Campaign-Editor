@@ -474,8 +474,13 @@
       }
 
       // Add event listeners for live updates
-      [pageTitleInput, metaDescriptionInput, ogImageInput].forEach(input => {
+      [metaDescriptionInput, ogImageInput].forEach(input => {
         input.addEventListener("input", updatePreview);
+      });
+
+      pageTitleInput.addEventListener("input", () => {
+        metaDescriptionInput.value = pageTitleInput.value; // Update meta description input
+        updatePreview();
       });
       paragraph1Editor.on("text-change", updatePreview);
 
