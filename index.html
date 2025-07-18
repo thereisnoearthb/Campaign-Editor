@@ -396,6 +396,14 @@
         const titleTag = doc.querySelector("title");
         if (titleTag) titleTag.textContent = pageTitleInput.value;
 
+        // Update OG Title
+        const ogTitleTag = doc.querySelector('meta[property="og:title"]');
+        if (ogTitleTag) ogTitleTag.setAttribute("content", pageTitleInput.value);
+
+        // Update Meta Name Title
+        const metaNameTitle = doc.querySelector('meta[name="title"]');
+        if (metaNameTitle) metaNameTitle.setAttribute("content", pageTitleInput.value);
+
         // Update Images
         const swiperWrapper = doc.querySelector(".swiper-wrapper");
         if (swiperWrapper) {
