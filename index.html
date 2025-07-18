@@ -160,7 +160,6 @@
       const previewFrame = document.getElementById("preview-frame");
 
       // Container references
-      const sectionHeadingsContainer = document.getElementById("section-headings-container");
       const imageContainer = document.getElementById("image-uploads-container");
       const linkButtonSectionsContainer = document.getElementById("link-button-sections-container");
 
@@ -173,19 +172,8 @@
         const doc = parser.parseFromString(currentHTML, "text/html");
 
         // Clear existing containers
-        sectionHeadingsContainer.innerHTML = "";
         imageContainer.innerHTML = "";
         linkButtonSectionsContainer.innerHTML = "";
-
-        // Count and generate standalone section heading input fields
-        const standaloneHeadings = doc.querySelectorAll(".section-heading:not(.link-button-section .section-heading)");
-        const standaloneHeadingCount = Math.max(standaloneHeadings.length, 0);
-
-        for (let i = 1; i <= standaloneHeadingCount; i++) {
-          const div = createSectionHeadingInputs(i);
-          sectionHeadingsContainer.appendChild(div);
-          div.querySelectorAll("input").forEach((input) => input.addEventListener("input", updatePreview));
-        }
 
         // Count and generate image input fields
         const imageSlides = doc.querySelectorAll(".swiper-slide");
@@ -209,34 +197,6 @@
 
         // Load the content into the editor fields
         loadHTMLIntoEditor(currentHTML);
-      }
-
-      // Function to create section heading inputs
-      function createSectionHeadingInputs(index) {
-        const div = document.createElement("div");
-        div.className = "section-heading-container";
-        div.draggable = true;
-        div.dataset.index = index;
-
-        div.innerHTML = `
-            <span class="drag-handle">☰</span>
-            <input type="text" id="section-heading${index}-input" placeholder="Section Heading ${index}">
-            <button class="delete-btn" title="Delete section heading">×</button>
-          `;
-
-        // Add drag event listeners
-        div.addEventListener("dragstart", handleDragStart);
-        div.addEventListener("dragover", handleDragOver);
-        div.addEventListener("drop", handleDrop);
-        div.addEventListener("dragend", handleDragEnd);
-
-        // Add delete button listener
-        div.querySelector(".delete-btn").addEventListener("click", () => {
-          div.remove();
-          updatePreview();
-        });
-
-        return div;
       }
 
       // Function to create image inputs
@@ -401,13 +361,6 @@
         const ogImageTag = doc.querySelector('meta[property="og:image"]');
         ogImageInput.value = ogImageTag ? ogImageTag.getAttribute("content") : "";
 
-        // Update standalone section headings
-        const standaloneHeadings = doc.querySelectorAll(".section-heading:not(.link-button-section .section-heading)");
-        standaloneHeadings.forEach((heading, index) => {
-          const headingInput = sectionHeadingsContainer.querySelector(`#section-heading${index + 1}-input`);
-          if (headingInput) headingInput.value = heading.textContent;
-        });
-
         // Update images
         const images = doc.querySelectorAll(".swiper-slide img");
         images.forEach((img, index) => {
@@ -500,15 +453,6 @@
         const titleTag = doc.querySelector("title");
         if (titleTag) titleTag.textContent = pageTitleInput.value;
 
-        // Update Standalone Section Headings
-        const standaloneHeadings = doc.querySelectorAll(".section-heading:not(.link-button-section .section-heading)");
-        const standaloneHeadingInputs = sectionHeadingsContainer.querySelectorAll(".section-heading-container input");
-        standaloneHeadingInputs.forEach((input, index) => {
-          if (standaloneHeadings[index]) {
-            standaloneHeadings[index].textContent = input.value;
-          }
-        });
-
         // Update Images
         const swiperWrapper = doc.querySelector(".swiper-wrapper");
         if (swiperWrapper) {
@@ -593,15 +537,6 @@
       paragraph1Editor.on("text-change", updatePreview);
 
       // Add event listeners for the add buttons
-      document.getElementById("add-section-heading-btn").addEventListener("click", () => {
-        const currentCount = sectionHeadingsContainer.querySelectorAll(".section-heading-container").length;
-        const newIndex = currentCount + 1;
-        const newInputs = createSectionHeadingInputs(newIndex);
-        sectionHeadingsContainer.appendChild(newInputs);
-        newInputs.querySelectorAll("input").forEach((input) => input.addEventListener("input", updatePreview));
-        updatePreview();
-      });
-
       document.getElementById("add-image-btn").addEventListener("click", () => {
         const currentCount = imageContainer.querySelectorAll(".image-upload-container").length;
         const newIndex = currentCount + 1;
