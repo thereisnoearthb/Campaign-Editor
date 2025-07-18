@@ -35,6 +35,9 @@
       <label for="og-image-input">Social Preview Image</label>
       <input type="url" id="og-image-input" placeholder="Enter Social Preview image URL" />
 
+      <label for="header-image-input">Header Logo Image</label>
+      <input type="url" id="header-image-input" placeholder="Enter header logo image URL" />
+
       <!-- Image Uploads -->
       <div class="section-header">
         <label>Campaign Images</label>
@@ -99,7 +102,8 @@
       const htmlFileInput = document.getElementById("html-file-input");
       const pageTitleInput = document.getElementById("page-title-input");
       const metaDescriptionInput = document.getElementById("meta-description-input");
-      const ogImageInput = document.getElementById("og-image-input");
+      const ogImageInput = document.getElementById("og-image-input")
+      const headerImageInput = document.getElementById("header-image-input");
       const previewFrame = document.getElementById("preview-frame");
 
       // Container references
@@ -304,6 +308,10 @@
         const ogImageTag = doc.querySelector('meta[property="og:image"]');
         ogImageInput.value = ogImageTag ? ogImageTag.getAttribute("content") : "";
 
+        // Update Header Image
+        const headerImage = doc.querySelector(".page-header img");
+        headerImageInput.value = headerImage ? headerImage.getAttribute("src") : "";
+
         // Update images
         const images = doc.querySelectorAll(".swiper-slide img");
         images.forEach((img, index) => {
@@ -391,6 +399,42 @@
         // Update OG Image
         const ogImageTag = doc.querySelector('meta[property="og:image"]');
         if (ogImageTag) ogImageTag.setAttribute("content", ogImageInput.value);
+
+        // Update Header Image
+        const headerSection = doc.querySelector(".page-header");
+        const headerImage = doc.querySelector(".page-header img");
+
+        if (headerImageInput.value && headerImageInput.value.trim() !== "") {
+          if (headerSection) {
+            headerSection.style.display = ""; // Show header
+            if (headerImage) {
+              // Update existing header image
+              headerImage.setAttribute("src", headerImageInput.value);
+              headerImage.setAttribute("alt", "Header Logo");
+            } else {
+              // Create header image if it doesn't exist
+              const newHeaderImage = document.createElement("img");
+              newHeaderImage.setAttribute("src", headerImageInput.value);
+              newHeaderImage.setAttribute("alt", "Header Logo");
+              newHeaderImage.setAttribute("width", "100px");
+              newHeaderImage.setAttribute("height", "100px");
+
+              // Find or create logo container
+              let logoContainer = headerSection.querySelector(".logo-container");
+              if (!logoContainer) {
+                logoContainer = document.createElement("div");
+                logoContainer.className = "logo-container";
+                headerSection.appendChild(logoContainer);
+              }
+              logoContainer.appendChild(newHeaderImage);
+            }
+          }
+        } else {
+          // No header image provided - hide header section
+          if (headerSection) {
+            headerSection.style.display = "none";
+          }
+        }
 
         // Update Title Tag
         const titleTag = doc.querySelector("title");
@@ -482,7 +526,7 @@
       }
 
       // Add event listeners for live updates
-      [metaDescriptionInput, ogImageInput].forEach(input => {
+      [metaDescriptionInput, ogImageInput, headerImageInput].forEach(input => {
         input.addEventListener("input", updatePreview);
       });
 
