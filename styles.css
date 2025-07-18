@@ -40,6 +40,12 @@ main {
 	display: block;
 }
 
+.section-header label {
+	display: inline-block;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
 .editor-section input[type="text"],
 .editor-section input[type="url"],
 .editor-section input[type="file"] {
