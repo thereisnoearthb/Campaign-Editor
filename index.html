@@ -211,22 +211,6 @@
         loadHTMLIntoEditor(currentHTML);
       }
 
-      // Function to load the default template (index.html)
-      async function loadDefaultTemplate() {
-        try {
-          const response = await fetch("index.html");
-          if (!response.ok) {
-            throw new Error(
-              `HTTP error! status: ${response.status}. Failed to load default template 'index.html'. Please select a template manually.`
-            );
-          }
-          const htmlContent = await response.text();
-          processAndLoadHtmlContent(htmlContent);
-        } catch (error) {
-          console.error(error.message);
-        }
-      }
-
       // Function to create section heading inputs
       function createSectionHeadingInputs(index) {
         const div = document.createElement("div");
@@ -656,8 +640,6 @@
         link.click();
       });
 
-      // Initialize
-      // loadDefaultTemplate();
     }); // End of DOMContentLoaded event listener
   </script>
 </body>
