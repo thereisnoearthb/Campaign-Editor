@@ -432,7 +432,9 @@
         } else {
           // No header image provided - hide header section
           if (headerSection) {
-            headerSection.style.display = "none";
+            if (headerSection) {
+              headerSection.remove();  // Completely removes from DOM
+            }
           }
         }
 
