@@ -1,124 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Advanced Campaign Editor</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.css"
-    />
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="assets/pencil-square.svg">
-  </head>
-  <body>
-    <header>
-      <h1>Campaign Editor</h1>
-    </header>
 
-    <div id="file-upload-container">
-      <label for="html-file-input">Select template.html:</label>
-      <input type="file" id="html-file-input" accept=".html" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campaign Editor</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.snow.css" />
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="assets/pencil-square.svg">
+</head>
+
+<body>
+  <header>
+    <h1>Campaign Editor</h1>
+  </header>
+
+  <div id="file-upload-container">
+    <label for="html-file-input">Select template.html:</label>
+    <input type="file" id="html-file-input" accept=".html" />
+  </div>
+
+  <main>
+    <!-- Editor Section -->
+    <div class="editor-section">
+      <h2>Edit Campaign</h2>
+
+      <!-- Page Title and Meta -->
+      <label for="page-title-input">Campaign Title</label>
+      <input type="text" id="page-title-input" placeholder="Enter campaign title" />
+
+      <label for="meta-description-input">Meta Description</label>
+      <input type="text" id="meta-description-input" placeholder="Enter meta description" />
+
+      <label for="og-image-input">Social Preview Image</label>
+      <input type="url" id="og-image-input" placeholder="Enter Social Preview image URL" />
+
+      <label for="header-image-input">Header Logo Image</label>
+      <input type="url" id="header-image-input" placeholder="Enter header logo image URL" />
+
+      <!-- Image Uploads -->
+      <div class="section-header">
+        <label>Campaign Images</label>
+        <button type="button" id="add-image-btn" class="add-btn">+</button>
+      </div>
+      <div id="image-uploads-container">
+        <!-- Will be populated dynamically -->
+      </div>
+
+      <!-- Paragraphs -->
+      <label for="paragraph1-editor">Paragraph 1</label>
+      <div id="paragraph1-editor" style="height: 150px; background-color: #fff; border: 1px solid #ccc"></div>
+
+      <!-- Social Links -->
+      <div id="social-links-container">
+        <label for="email-link-input">Email</label>
+        <input type="url" id="email-link-input" placeholder="Email Link" />
+
+        <label for="twitter-link-input">Twitter</label>
+        <input type="url" id="twitter-link-input" placeholder="Twitter Link" />
+
+        <label for="whatsapp-link-input">WhatsApp</label>
+        <input type="url" id="whatsapp-link-input" placeholder="WhatsApp Link" />
+
+        <label for="instagram-link-input">Instagram</label>
+        <input type="url" id="instagram-link-input" placeholder="Instagram Link" />
+      </div>
+
+      <!-- Link Button Sections -->
+      <div class="section-header">
+        <label>Link Button Sections</label>
+        <button type="button" id="add-link-button-section-btn" class="add-btn">+</button>
+      </div>
+      <div id="link-button-sections-container">
+        <!-- Will be populated dynamically -->
+      </div>
+
+      <!-- Download Button -->
+      <button id="download-btn">Download HTML</button> It will be saved as
+      updated-campaign.html
     </div>
 
-    <main>
-      <!-- Editor Section -->
-      <div class="editor-section">
-        <h2>Edit Campaign</h2>
+    <!-- Preview Section -->
+    <div class="preview-section">
+      <h2>Preview</h2>
+      <iframe id="preview-frame" title="Campaign Preview"></iframe>
+    </div>
+  </main>
 
-        <!-- Page Title and Meta -->
-        <label for="page-title-input">Campaign Title</label>
-        <input
-          type="text"
-          id="page-title-input"
-          placeholder="Enter campaign title"
-        />
+  <!-- Quill Editor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.min.js"></script>
 
-        <label for="meta-description-input">Meta Description</label>
-        <input
-          type="text"
-          id="meta-description-input"
-          placeholder="Enter meta description"
-        />
-
-        <label for="og-image-input">Social Preview Image</label>
-        <input
-          type="url"
-          id="og-image-input"
-          placeholder="Enter Social Preview image URL"
-        />
-
-        <!-- Image Uploads -->
-        <div class="section-header">
-          <label>Campaign Images</label>
-          <button type="button" id="add-image-btn" class="add-btn">+</button>
-        </div>
-        <div id="image-uploads-container">
-          <!-- Will be populated dynamically -->
-        </div>
-
-        <!-- Paragraphs -->
-        <label for="paragraph1-editor">Paragraph 1</label>
-        <div
-          id="paragraph1-editor"
-          style="height: 150px; background-color: #fff; border: 1px solid #ccc"
-        ></div>
-
-        <!-- Social Links -->
-        <div id="social-links-container">
-          <label for="email-link-input">Email</label>
-          <input type="url" id="email-link-input" placeholder="Email Link" />
-
-          <label for="twitter-link-input">Twitter</label>
-          <input
-            type="url"
-            id="twitter-link-input"
-            placeholder="Twitter Link"
-          />
-
-          <label for="whatsapp-link-input">WhatsApp</label>
-          <input
-            type="url"
-            id="whatsapp-link-input"
-            placeholder="WhatsApp Link"
-          />
-
-          <label for="instagram-link-input">Instagram</label>
-          <input
-            type="url"
-            id="instagram-link-input"
-            placeholder="Instagram Link"
-          />
-        </div>
-
-        <!-- Buttons -->
-        <div id="buttons-container">
-          <div class="section-header">
-            <label>Link Buttons</label>
-            <button type="button" id="add-button-btn" class="add-btn">+</button>
-          </div>
-          <div id="button-groups-container">
-            <!-- Will be populated dynamically -->
-          </div>
-        </div>
-
-        <!-- Download Button -->
-        <button id="download-btn">Download HTML</button> It will be saved as
-        updated-campaign.html
-      </div>
-
-      <!-- Preview Section -->
-      <div class="preview-section">
-        <h2>Preview</h2>
-        <iframe id="preview-frame" title="Campaign Preview"></iframe>
-      </div>
-    </main>
-
-    <!-- Quill Editor -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.2/quill.min.js"></script>
-
-    <!-- Editor Script -->
-    <script>
+  <!-- Editor Script -->
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
       const paragraph1Editor = new Quill("#paragraph1-editor", {
         theme: "snow",
       });
@@ -126,11 +101,14 @@
 
       const htmlFileInput = document.getElementById("html-file-input");
       const pageTitleInput = document.getElementById("page-title-input");
-      const metaDescriptionInput = document.getElementById(
-        "meta-description-input"
-      );
-      const ogImageInput = document.getElementById("og-image-input");
+      const metaDescriptionInput = document.getElementById("meta-description-input");
+      const ogImageInput = document.getElementById("og-image-input")
+      const headerImageInput = document.getElementById("header-image-input");
       const previewFrame = document.getElementById("preview-frame");
+
+      // Container references
+      const imageContainer = document.getElementById("image-uploads-container");
+      const linkButtonSectionsContainer = document.getElementById("link-button-sections-container");
 
       // Function to process HTML content and populate the editor
       function processAndLoadHtmlContent(htmlString) {
@@ -142,78 +120,45 @@
 
         // Clear existing containers
         imageContainer.innerHTML = "";
-        buttonContainer.innerHTML = "";
+        linkButtonSectionsContainer.innerHTML = "";
 
         // Count and generate image input fields
         const imageSlides = doc.querySelectorAll(".swiper-slide");
-        const imageCount = Math.max(imageSlides.length, 1); // Ensure at least one set of inputs
+        const imageCount = Math.max(imageSlides.length, 1);
 
         for (let i = 1; i <= imageCount; i++) {
           const div = createImageInputs(i);
           imageContainer.appendChild(div);
-          // Add event listeners to newly created inputs for live preview
-          div
-            .querySelectorAll("input")
-            .forEach((input) => input.addEventListener("input", updatePreview));
+          div.querySelectorAll("input").forEach((input) => input.addEventListener("input", updatePreview));
         }
 
-        // Count and generate button input fields
-        const linkButtons = doc.querySelectorAll(".link-button");
-        const buttonCount = Math.max(linkButtons.length, 1); // Ensure at least one set of inputs
+        // Count and generate link button section input fields
+        const linkButtonSections = doc.querySelectorAll(".link-button-section");
+        const linkButtonSectionCount = Math.max(linkButtonSections.length, 1);
 
-        for (let i = 1; i <= buttonCount; i++) {
-          const div = createButtonInputs(i);
-          buttonContainer.appendChild(div);
-          // Add event listeners to newly created inputs for live preview
-          div
-            .querySelectorAll("input")
-            .forEach((input) => input.addEventListener("input", updatePreview));
+        for (let i = 1; i <= linkButtonSectionCount; i++) {
+          const div = createLinkButtonSectionInputs(i);
+          linkButtonSectionsContainer.appendChild(div);
+          div.querySelectorAll("input").forEach((input) => input.addEventListener("input", updatePreview));
         }
 
         // Load the content into the editor fields
-        loadHTMLIntoEditor(currentHTML); // This function also calls updatePreview
+        loadHTMLIntoEditor(currentHTML);
       }
 
-      // Function to load the default template (index.html)
-      async function loadDefaultTemplate() {
-        try {
-          const response = await fetch("index.html"); // Assumes index.html is in the same directory
-          if (!response.ok) {
-            throw new Error(
-              `HTTP error! status: ${response.status}. Failed to load default template 'index.html'. Please select a template manually.`
-            );
-          }
-          const htmlContent = await response.text();
-          processAndLoadHtmlContent(htmlContent);
-        } catch (error) {
-          console.error(error.message);
-          // Editor will remain in its initial state, user can use the file input.
-        }
-      }
-
-      // Image inputs
-      const imageContainer = document.getElementById("image-uploads-container");
-
-      // Button inputs
-      const buttonContainer = document.getElementById(
-        "button-groups-container"
-      );
-
+      // Function to create image inputs
       function createImageInputs(index) {
         const div = document.createElement("div");
         div.className = "image-upload-container";
-        div.draggable = true; // Make draggable
-        div.dataset.index = index; // Store original index
+        div.draggable = true;
+        div.dataset.index = index;
 
         div.innerHTML = `
-                <span class="drag-handle">☰</span>
-                <input type="text" id="image${index}-input" placeholder="Image ${index} URL">
-                <input type="text" id="image${index}-alt-input" placeholder="Image ${index} Alt Text">
-                <button class="delete-btn" title="Delete button">×</button>
-            `;
-        div.querySelectorAll("input").forEach((input) => {
-          input.addEventListener("input", updatePreview);
-        });
+            <span class="drag-handle">☰</span>
+            <input type="text" id="image${index}-input" placeholder="Image ${index} URL">
+            <input type="text" id="image${index}-alt-input" placeholder="Image ${index} Alt Text">
+            <button class="delete-btn" title="Delete image">×</button>
+          `;
 
         // Add drag event listeners
         div.addEventListener("dragstart", handleDragStart);
@@ -226,24 +171,53 @@
           div.remove();
           updatePreview();
         });
+
         return div;
       }
 
-      function createButtonInputs(index) {
+      // Function to create button row inputs (text and href side by side)
+      function createButtonRowInputs(sectionIndex, buttonIndex) {
         const div = document.createElement("div");
-        div.className = "button-group";
-        div.draggable = true; // Make draggable
-        div.dataset.index = index; // Store original index
+        div.className = "button-row";
+        div.dataset.sectionIndex = sectionIndex;
+        div.dataset.buttonIndex = buttonIndex;
 
         div.innerHTML = `
-                <span class="drag-handle">☰</span>
-                <input type="text" class="button-text" placeholder="Button ${index} Text">
-                <input type="url" class="button-link" placeholder="Button ${index} Link">
-                <button class="delete-btn" title="Delete button">×</button>
-            `;
+            <input type="text" class="button-text" placeholder="Button Text">
+            <input type="url" class="button-link" placeholder="Button Link">
+            <button class="delete-btn" title="Delete button">×</button>
+          `;
+
+        // Add input event listeners
         div.querySelectorAll("input").forEach((input) => {
           input.addEventListener("input", updatePreview);
         });
+
+        // Add delete button listener
+        div.querySelector(".delete-btn").addEventListener("click", () => {
+          div.remove();
+          updatePreview();
+        });
+
+        return div;
+      }
+
+      // Function to create link button section inputs (with section heading and multiple buttons)
+      function createLinkButtonSectionInputs(index) {
+        const div = document.createElement("div");
+        div.className = "link-button-section-container";
+        div.draggable = true;
+        div.dataset.index = index;
+
+        div.innerHTML = `
+            <span class="drag-handle">☰</span>
+            <input type="text" class="section-heading-input" placeholder="Section ${index} Heading">
+            <div class="buttons-container" data-section-index="${index}">
+              <!-- Button rows will be added here -->
+            </div>
+            <button class="add-button-in-section" data-section-index="${index}">+ New Button</button>
+            <button class="delete-btn" title="Delete button section">×</button>
+          `;
 
         // Add drag event listeners
         div.addEventListener("dragstart", handleDragStart);
@@ -257,9 +231,23 @@
           updatePreview();
         });
 
+        // Add "Add Button" listener
+        div.querySelector(".add-button-in-section").addEventListener("click", (e) => {
+          const sectionIndex = e.target.dataset.sectionIndex;
+          const buttonsContainer = div.querySelector(".buttons-container");
+          const currentButtonCount = buttonsContainer.querySelectorAll(".button-row").length;
+          const newButtonRow = createButtonRowInputs(sectionIndex, currentButtonCount + 1);
+          buttonsContainer.appendChild(newButtonRow);
+          updatePreview();
+        });
+
+        // Add section heading input listener
+        div.querySelector(".section-heading-input").addEventListener("input", updatePreview);
+
         return div;
       }
 
+      // Drag and drop handlers
       let draggedItem = null;
 
       function handleDragStart(e) {
@@ -291,6 +279,7 @@
         updatePreview();
       }
 
+      // File input handler
       htmlFileInput.addEventListener("change", (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -302,6 +291,7 @@
         }
       });
 
+      // Function to load HTML content into editor fields
       function loadHTMLIntoEditor(htmlContent) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlContent, "text/html");
@@ -312,33 +302,28 @@
 
         // Update meta description
         const metaDescription = doc.querySelector('meta[name="description"]');
-        metaDescriptionInput.value = metaDescription
-          ? metaDescription.getAttribute("content")
-          : "";
+        metaDescriptionInput.value = metaDescription ? metaDescription.getAttribute("content") : "";
 
         // Update OG Image
         const ogImageTag = doc.querySelector('meta[property="og:image"]');
-        ogImageInput.value = ogImageTag
-          ? ogImageTag.getAttribute("content")
-          : "";
+        ogImageInput.value = ogImageTag ? ogImageTag.getAttribute("content") : "";
+
+        // Update Header Image
+        const headerImage = doc.querySelector(".page-header img");
+        headerImageInput.value = headerImage ? headerImage.getAttribute("src") : "";
 
         // Update images
         const images = doc.querySelectorAll(".swiper-slide img");
         images.forEach((img, index) => {
-          const imageInput = imageContainer.querySelector(
-            `#image${index + 1}-input`
-          );
+          const imageInput = imageContainer.querySelector(`#image${index + 1}-input`);
           if (imageInput) imageInput.value = img.src;
-          const imageAltInput = imageContainer.querySelector(
-            `#image${index + 1}-alt-input`
-          );
+          const imageAltInput = imageContainer.querySelector(`#image${index + 1}-alt-input`);
           if (imageAltInput) imageAltInput.value = img.alt;
         });
 
         // Update paragraphs
         const paragraphs = doc.querySelectorAll(".card-text");
-        if (paragraphs[0])
-          paragraph1Editor.root.innerHTML = paragraphs[0].innerHTML;
+        if (paragraphs[0]) paragraph1Editor.root.innerHTML = paragraphs[0].innerHTML;
 
         // Update social links
         const socialLinks = {
@@ -348,39 +333,56 @@
           instagram: doc.querySelector(".instagram-btn"),
         };
 
-        document.getElementById("email-link-input").value = socialLinks.email
-          ? socialLinks.email.href
-          : "";
-        document.getElementById("twitter-link-input").value =
-          socialLinks.twitter ? socialLinks.twitter.href : "";
-        document.getElementById("whatsapp-link-input").value =
-          socialLinks.whatsapp ? socialLinks.whatsapp.href : "";
-        document.getElementById("instagram-link-input").value =
-          socialLinks.instagram ? socialLinks.instagram.href : "";
+        document.getElementById("email-link-input").value = socialLinks.email ? socialLinks.email.href : "";
+        document.getElementById("twitter-link-input").value = socialLinks.twitter ? socialLinks.twitter.href : "";
+        document.getElementById("whatsapp-link-input").value = socialLinks.whatsapp ? socialLinks.whatsapp.href : "";
+        document.getElementById("instagram-link-input").value = socialLinks.instagram ? socialLinks.instagram.href : "";
 
-        // Update buttons
-        const buttonWrapper = doc.getElementById("link-button-wrapper");
-        const buttons = buttonWrapper
-          ? buttonWrapper.querySelectorAll(".link-button")
-          : []; // Find buttons inside the wrapper
+        // Update link button sections (both heading and ALL buttons)
+        const linkButtonSections = doc.querySelectorAll(".link-button-section");
+        linkButtonSections.forEach((section, sectionIndex) => {
+          const buttonContainer = linkButtonSectionsContainer.children[sectionIndex];
+          if (buttonContainer) {
+            // Update section heading
+            const sectionHeading = section.querySelector(".section-heading");
+            const sectionHeadingInput = buttonContainer.querySelector(".section-heading-input");
+            if (sectionHeading && sectionHeadingInput) {
+              sectionHeadingInput.value = sectionHeading.textContent.trim();
+            }
 
-        // Clear existing button inputs in the editor
-        buttonContainer.innerHTML = "";
+            // Update ALL buttons in this section
+            const buttons = section.querySelectorAll(".link-button, a");
+            const buttonsContainer = buttonContainer.querySelector(".buttons-container");
 
-        // Create editor inputs based on template buttons
-        buttons.forEach((button, index) => {
-          const div = createButtonInputs(index + 1);
-          const buttonTextInput = div.querySelector(".button-text");
-          const buttonLinkInput = div.querySelector(".button-link");
-          if (buttonTextInput)
-            buttonTextInput.value = button.textContent.trim();
-          if (buttonLinkInput) buttonLinkInput.value = button.href;
-          buttonContainer.appendChild(div);
+            // Clear existing button rows
+            buttonsContainer.innerHTML = "";
+
+            // Add button rows for each button found
+            buttons.forEach((button, buttonIndex) => {
+              const buttonRow = createButtonRowInputs(sectionIndex + 1, buttonIndex + 1);
+              const buttonTextInput = buttonRow.querySelector(".button-text");
+              const buttonLinkInput = buttonRow.querySelector(".button-link");
+
+              if (buttonTextInput && buttonLinkInput) {
+                buttonTextInput.value = button.textContent.trim();
+                buttonLinkInput.value = button.href || "";
+              }
+
+              buttonsContainer.appendChild(buttonRow);
+            });
+
+            // If no buttons found, add one empty row
+            if (buttons.length === 0) {
+              const buttonRow = createButtonRowInputs(sectionIndex + 1, 1);
+              buttonsContainer.appendChild(buttonRow);
+            }
+          }
         });
 
         updatePreview();
       }
 
+      // Update preview function
       function updatePreview() {
         if (!currentHTML) return;
 
@@ -392,47 +394,84 @@
 
         // Update Meta Description
         const metaDescription = doc.querySelector('meta[name="description"]');
-        if (metaDescription)
-          metaDescription.setAttribute("content", metaDescriptionInput.value);
+        if (metaDescription) metaDescription.setAttribute("content", metaDescriptionInput.value);
 
         // Update OG Image
         const ogImageTag = doc.querySelector('meta[property="og:image"]');
         if (ogImageTag) ogImageTag.setAttribute("content", ogImageInput.value);
 
+        // Update Header Image
+        const headerSection = doc.querySelector(".page-header");
+        const headerImage = doc.querySelector(".page-header img");
+
+        if (headerImageInput.value && headerImageInput.value.trim() !== "") {
+          if (headerSection) {
+            headerSection.style.display = ""; // Show header
+            if (headerImage) {
+              // Update existing header image
+              headerImage.setAttribute("src", headerImageInput.value);
+              headerImage.setAttribute("alt", "Header Logo");
+            } else {
+              // Create header image if it doesn't exist
+              const newHeaderImage = document.createElement("img");
+              newHeaderImage.setAttribute("src", headerImageInput.value);
+              newHeaderImage.setAttribute("alt", "Header Logo");
+              newHeaderImage.setAttribute("width", "100px");
+              newHeaderImage.setAttribute("height", "100px");
+
+              // Find or create logo container
+              let logoContainer = headerSection.querySelector(".logo-container");
+              if (!logoContainer) {
+                logoContainer = document.createElement("div");
+                logoContainer.className = "logo-container";
+                headerSection.appendChild(logoContainer);
+              }
+              logoContainer.appendChild(newHeaderImage);
+            }
+          }
+        } else {
+          // No header image provided - hide header section
+          if (headerSection) {
+            if (headerSection) {
+              headerSection.remove();  // Completely removes from DOM
+            }
+          }
+        }
+
         // Update Title Tag
         const titleTag = doc.querySelector("title");
         if (titleTag) titleTag.textContent = pageTitleInput.value;
 
+        // Update OG Title
+        const ogTitleTag = doc.querySelector('meta[property="og:title"]');
+        if (ogTitleTag) ogTitleTag.setAttribute("content", pageTitleInput.value);
+
+        // Update Meta Name Title
+        const metaNameTitle = doc.querySelector('meta[name="title"]');
+        if (metaNameTitle) metaNameTitle.setAttribute("content", pageTitleInput.value);
+
         // Update Images
         const swiperWrapper = doc.querySelector(".swiper-wrapper");
         if (swiperWrapper) {
-          // Clear existing slides
           swiperWrapper.innerHTML = "";
-
-          // Add all current images
-          const imageInputs = imageContainer.querySelectorAll(
-            ".image-upload-container"
-          );
+          const imageInputs = imageContainer.querySelectorAll(".image-upload-container");
           imageInputs.forEach((container) => {
-            // Find inputs within each container
             const inputs = container.querySelectorAll("input[type='text']");
             const urlInput = inputs[0];
             const altInput = inputs[1];
 
-            const slide = document.createElement("div");
-            slide.className = "swiper-slide";
-            slide.innerHTML = `<img src="${urlInput.value || ""}" 
-                                        alt="${
-                                          altInput.value || `Campaign Image`
-                                        }" loading="lazy">`;
-            swiperWrapper.appendChild(slide);
+            if (urlInput && urlInput.value) {
+              const slide = document.createElement("div");
+              slide.className = "swiper-slide";
+              slide.innerHTML = `<img src="${urlInput.value}" alt="${altInput.value || 'Campaign Image'}" loading="lazy">`;
+              swiperWrapper.appendChild(slide);
+            }
           });
         }
 
         // Update Paragraphs
         const paragraphs = doc.querySelectorAll(".card-text");
-        if (paragraphs[0])
-          paragraphs[0].innerHTML = paragraph1Editor.root.innerHTML;
+        if (paragraphs[0]) paragraphs[0].innerHTML = paragraph1Editor.root.innerHTML;
 
         // Update Social Links
         const socialLinks = {
@@ -442,152 +481,86 @@
           instagram: doc.querySelector(".instagram-btn"),
         };
 
-        if (socialLinks.email)
-          socialLinks.email.href =
-            document.getElementById("email-link-input").value;
-        if (socialLinks.twitter)
-          socialLinks.twitter.href =
-            document.getElementById("twitter-link-input").value;
-        if (socialLinks.whatsapp)
-          socialLinks.whatsapp.href = document.getElementById(
-            "whatsapp-link-input"
-          ).value;
-        if (socialLinks.instagram)
-          socialLinks.instagram.href = document.getElementById(
-            "instagram-link-input"
-          ).value;
+        if (socialLinks.email) socialLinks.email.href = document.getElementById("email-link-input").value;
+        if (socialLinks.twitter) socialLinks.twitter.href = document.getElementById("twitter-link-input").value;
+        if (socialLinks.whatsapp) socialLinks.whatsapp.href = document.getElementById("whatsapp-link-input").value;
+        if (socialLinks.instagram) socialLinks.instagram.href = document.getElementById("instagram-link-input").value;
 
-        // Update Buttons
-        const buttonWrapper = doc.getElementById("link-button-wrapper");
-        if (buttonWrapper) {
-          buttonWrapper.innerHTML = "";
+        // Update Link Button Sections (both headings and ALL buttons)
+        const linkButtonSections = doc.querySelectorAll(".link-button-section");
+        const linkButtonSectionContainers = linkButtonSectionsContainer.querySelectorAll(".link-button-section-container");
 
-          // Get button data from the editor's input fields
-          const buttonGroups = document
-            .getElementById("button-groups-container")
-            .querySelectorAll(".button-group");
+        linkButtonSectionContainers.forEach((container, sectionIndex) => {
+          const headingInput = container.querySelector(".section-heading-input");
+          const buttonRows = container.querySelectorAll(".button-row");
 
-          buttonGroups.forEach((group, index) => {
-            const textInput = group.querySelector(".button-text");
-            const linkInput = group.querySelector(".button-link");
-
-            // Only add if text or link has a value
-            if (
-              textInput &&
-              linkInput &&
-              (textInput.value.trim() || linkInput.value.trim())
-            ) {
-              const button = document.createElement("a");
-              button.className = "link-button";
-              button.target = "_blank";
-              button.rel = "noopener noreferrer";
-              button.href = linkInput.value || "#";
-              button.textContent = textInput.value || "";
-
-              if (index > 0) {
-                buttonWrapper.appendChild(document.createTextNode("\n  "));
-              } else {
-                buttonWrapper.appendChild(document.createTextNode("\n  "));
-              }
-
-              // Append the actual button
-              buttonWrapper.appendChild(button);
+          if (linkButtonSections[sectionIndex]) {
+            // Update section heading
+            const sectionHeading = linkButtonSections[sectionIndex].querySelector(".section-heading");
+            if (sectionHeading && headingInput) {
+              sectionHeading.textContent = headingInput.value || "";
             }
-          });
 
-          // Formatting the .link-buttons into separate lines
-          if (buttonGroups.length > 0 && buttonWrapper.childNodes.length > 0) {
-            buttonWrapper.appendChild(document.createTextNode("\n"));
+            // Clear existing buttons in this section
+            const existingButtons = linkButtonSections[sectionIndex].querySelectorAll(".link-button, a");
+            existingButtons.forEach(button => button.remove());
+
+            // Add all buttons from the editor
+            buttonRows.forEach((row, buttonIndex) => {
+              const textInput = row.querySelector(".button-text");
+              const linkInput = row.querySelector(".button-link");
+
+              if (textInput && linkInput && (textInput.value || linkInput.value)) {
+                const button = document.createElement("a");
+                button.className = "link-button";
+                button.target = "_blank";
+                button.rel = "noopener noreferrer";
+                button.href = linkInput.value || "#";
+                button.textContent = textInput.value || "";
+
+                linkButtonSections[sectionIndex].appendChild(button);
+              }
+            });
           }
-        } else {
-          console.warn(
-            "Could not find #link-button-wrapper in the template. Buttons cannot be updated."
-          );
-        }
+        });
 
         previewFrame.srcdoc = doc.documentElement.outerHTML;
-
-        // Reinitialize Swiper if needed
-        const swiper = previewFrame.contentWindow?.swiper;
-        if (swiper) {
-          setTimeout(() => {
-            swiper.update();
-          }, 100);
-        }
       }
 
       // Add event listeners for live updates
-      document
-        .querySelectorAll("input")
-        .forEach((input) => input.addEventListener("input", updatePreview));
+      [metaDescriptionInput, ogImageInput, headerImageInput].forEach(input => {
+        input.addEventListener("input", updatePreview);
+      });
+
+      pageTitleInput.addEventListener("input", () => {
+        metaDescriptionInput.value = pageTitleInput.value; // Update meta description input
+        updatePreview();
+      });
       paragraph1Editor.on("text-change", updatePreview);
 
       // Add event listeners for the add buttons
       document.getElementById("add-image-btn").addEventListener("click", () => {
-        const currentCount = imageContainer.querySelectorAll(
-          ".image-upload-container"
-        ).length;
+        const currentCount = imageContainer.querySelectorAll(".image-upload-container").length;
         const newIndex = currentCount + 1;
-
-        // Add new input fields
         const newInputs = createImageInputs(newIndex);
         imageContainer.appendChild(newInputs);
-
-        // Update template HTML with new empty image slide
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(currentHTML, "text/html");
-        const swiperWrapper = doc.querySelector(".swiper-wrapper");
-
-        if (swiperWrapper) {
-          const newSlide = document.createElement("div");
-          newSlide.className = "swiper-slide";
-          newSlide.innerHTML = `<img src="" alt="Campaign Image ${newIndex}" loading="lazy">`;
-          swiperWrapper.appendChild(newSlide);
-          currentHTML = doc.documentElement.outerHTML;
-          updatePreview();
-        }
-
-        // Add event listeners to new inputs
-        newInputs
-          .querySelectorAll("input")
-          .forEach((input) => input.addEventListener("input", updatePreview));
+        newInputs.querySelectorAll("input").forEach((input) => input.addEventListener("input", updatePreview));
+        updatePreview();
       });
 
-      document
-        .getElementById("add-button-btn")
-        .addEventListener("click", () => {
-          const currentCount = buttonContainer.querySelectorAll(".button-group").length;
-          const newIndex = currentCount + 1;
+      document.getElementById("add-link-button-section-btn").addEventListener("click", () => {
+        const currentCount = linkButtonSectionsContainer.querySelectorAll(".link-button-section-container").length;
+        const newIndex = currentCount + 1;
+        const newInputs = createLinkButtonSectionInputs(newIndex);
+        linkButtonSectionsContainer.appendChild(newInputs);
 
-          // Add new input fields
-          const newInputs = createButtonInputs(newIndex);
-          // Prepend the new input group to the UI container
-          buttonContainer.prepend(newInputs);
+        // Add one initial button row
+        const buttonsContainer = newInputs.querySelector(".buttons-container");
+        const buttonRow = createButtonRowInputs(newIndex, 1);
+        buttonsContainer.appendChild(buttonRow);
 
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(currentHTML, "text/html");
-          const buttonWrapperInDoc = doc.getElementById("link-button-wrapper");
-
-          if (buttonWrapperInDoc) {
-            const newButton = document.createElement("a");
-            newButton.className = "link-button";
-            newButton.target = "_blank"; // Match attributes from updatePreview
-            newButton.rel = "noopener noreferrer"; // Match attributes from updatePreview
-            newButton.href = "";
-            newButton.textContent = "";
-
-            // Prepend the new link element to the wrapper in the doc
-            buttonWrapperInDoc.insertBefore(newButton, buttonWrapperInDoc.firstChild);
-
-            currentHTML = doc.documentElement.outerHTML;
-          } else {
-            console.warn(
-              "Could not find #link-button-wrapper in the template when trying to add a new button to currentHTML."
-            );
-          }
-
-          updatePreview(); // Ensure preview is updated immediately
-        });
+        updatePreview();
+      });
 
       // Download button functionality
       document.getElementById("download-btn").addEventListener("click", () => {
@@ -596,15 +569,16 @@
           return;
         }
 
-        // Prepend doctype to the HTML content
         const pageContent = `<!DOCTYPE html>\n${previewFrame.srcdoc}`;
-
         const blob = new Blob([pageContent], { type: "text/html" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = "updated-campaign.html";
         link.click();
       });
-    </script>
-  </body>
+
+    }); // End of DOMContentLoaded event listener
+  </script>
+</body>
+
 </html>
